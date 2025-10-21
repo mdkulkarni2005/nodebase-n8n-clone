@@ -19,8 +19,8 @@ export const requireUnauth = async () => {
         headers: await headers()
     })
 
-    if(!session) {
-        redirect('/workflows')
+    if(session) {
+        redirect('/')
     }
 
 }
