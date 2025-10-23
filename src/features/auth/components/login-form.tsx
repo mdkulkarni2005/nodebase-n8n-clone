@@ -46,18 +46,21 @@ export function LoginForm() {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    await authClient.signIn.email({
-      email: values.email,
-      password: values.password,
-      callbackURL: "/",
-    }, {
-      onSuccess: () => {
-        router.push('/')
+    await authClient.signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+        callbackURL: "/",
       },
-      onError: (ctx) => {
-        toast.error(ctx.error.message)
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
       }
-    })
+    );
   };
 
   const isPending = form.formState.isSubmitting;
@@ -80,6 +83,12 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
+                    <Image
+                      src="/logos/github.svg"
+                      alt="github"
+                      width={20}
+                      height={20}
+                    />
                     Continue with Github
                   </Button>
                   <Button
@@ -88,6 +97,12 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
+                    <Image
+                      src="/logos/google.svg"
+                      alt="google"
+                      width={20}
+                      height={20}
+                    />
                     Continue with Google
                   </Button>
                 </div>
@@ -127,14 +142,14 @@ export function LoginForm() {
                     )}
                   />
                   <Button type="submit" className="w-full" disabled={isPending}>
-                    Login 
+                    Login
                   </Button>
                 </div>
                 <div className="text-center text-sm">
-                    Don&apos;t have an account?{' '}
-                    <Link href="/signup" className="underline underline-offset-4">
-                        Sign up
-                    </Link>
+                  Don&apos;t have an account?{" "}
+                  <Link href="/signup" className="underline underline-offset-4">
+                    Sign up
+                  </Link>
                 </div>
               </div>
             </form>
