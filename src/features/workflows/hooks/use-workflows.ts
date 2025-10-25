@@ -14,7 +14,6 @@ export const useSuspenseWorkflows = () => {
 };
 
 export const userCreateWorkflow = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
   const trpc = useTRPC();
 
@@ -22,7 +21,6 @@ export const userCreateWorkflow = () => {
     trpc.workflows.create.mutationOptions({
       onSuccess: (data) => {
         toast.success(`workflows "${data.name}" created`);
-        router.push(`/workflows/${data.id}`);
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions());
       },
       onError: (error) => {
