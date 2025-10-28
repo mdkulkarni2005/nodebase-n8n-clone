@@ -1,10 +1,13 @@
 "use client";
 
 import {
+  EmptyView,
   EntityContainer,
   EntityHeader,
   EntityPagination,
   EntitySearch,
+  ErrorView,
+  LoadingView,
 } from "@/components/entity-components";
 import {
   userCreateWorkflow,
@@ -33,6 +36,12 @@ export const WorkflowsSearch = () => {
 
 export const WorkflowsList = () => {
   const workflows = useSuspenseWorkflows();
+
+  if (!workflows.data.item || workflows.data.item.length === 0) {
+    return (
+      <WorkflowsEmpty />
+    )
+  }
 
   return (
     <div className="flex-1 flex justify-center items-center">
@@ -63,7 +72,7 @@ export const WorkflowsHeader = ({ disabled }: { disabled?: boolean }) => {
       {modal}
       <EntityHeader
         title="workflows"
-        description="Create and mange you workflows"
+        description="Create and manage your workflows"
         onNew={handleCreate}
         newButtonLabel="New workflow"
         disabled={disabled}
@@ -100,5 +109,36 @@ export const WorkflowsContainer = ({
     >
       {children}
     </EntityContainer>
+  );
+};
+
+export const WorkflowsLoading = () => {
+  return <LoadingView message="Loading workflows..." />;
+};
+
+export const WorkflowsError = () => {
+  return <ErrorView message="Error loading workflows..." />;
+};
+
+export const WorkflowsEmpty = () => {
+  const createWorkflow = userCreateWorkflow();
+  const { handleError, modal } = useUpgradeModal();
+
+  const handleCreate = () => {
+    createWorkflow.mutate(undefined, {
+      onError: (error) => {
+        handleError(error);
+      },
+    });
+  };
+
+  return (
+    <>
+      {modal}
+      <EmptyView
+        onNew={handleCreate}
+        message="You haven't created any workflows yet. Get started by creating your first workflow"
+      />
+    </>
   );
 };

@@ -3,7 +3,7 @@ import { PAGINATION } from "@/config/constants";
 
 interface UseEntitySearchProps<
   T extends {
-    search: String;
+    search: string;
     page: number;
   }
 > {
@@ -18,10 +18,10 @@ export function useEntitySearch<
     page: number;
   }
 >({ params, setParams, debounceMs = 500 }: UseEntitySearchProps<T>) {
-  const [loacalSearch, setLocalSearch] = useState(params.search);
+  const [localSearch, setLocalSearch] = useState(params.search);
 
   useEffect(() => {
-    if (loacalSearch === "" && params.search !== "") {
+    if (localSearch === "" && params.search !== "") {
       setParams({
         ...params,
         search: "",
@@ -30,24 +30,24 @@ export function useEntitySearch<
       return;
     }
     const timer = setTimeout(() => {
-      if (loacalSearch !== params.search) {
+      if (localSearch !== params.search) {
         setParams({
           ...params,
-          search: loacalSearch,
+          search: localSearch,
           page: PAGINATION.DEFAULT_PAGE,
         });
       }
     }, debounceMs);
 
     return () => clearTimeout(timer);
-  }, [loacalSearch, params, setParams, debounceMs]);
+  }, [localSearch, params, setParams, debounceMs]);
 
   useEffect(() => {
     setLocalSearch(params.search);
   }, [params.search]);
 
   return {
-    searchValue: loacalSearch,
+    searchValue: localSearch,
     onSerachChange: setLocalSearch,
   };
 }
