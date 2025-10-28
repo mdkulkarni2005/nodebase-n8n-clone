@@ -6,11 +6,11 @@ import {
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { userWorkflowsParams } from "./use-workflows-params";
+import { useWorkflowsParams } from "./use-workflows-params";
 
 export const useSuspenseWorkflows = () => {
   const trpc = useTRPC();
-  const [params] = userWorkflowsParams()
+  const [params] = useWorkflowsParams()
 
   return useSuspenseQuery(trpc.workflows.getMany.queryOptions(params));
 };
