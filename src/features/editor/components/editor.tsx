@@ -20,7 +20,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useCallback, useState } from "react";
-import { AddNodeButton } from "./editor-node-button";
+import { AddNodeButton } from "./add-node-button";
 
 export const EditorLoading = () => {
   return <LoadingView message="Loading editor" />;
