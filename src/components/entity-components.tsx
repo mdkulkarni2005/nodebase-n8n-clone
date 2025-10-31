@@ -26,7 +26,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { describe } from "node:test";
 
 type EntityHeaderProps = {
   title: string;
@@ -172,7 +171,7 @@ interface StateViewProps {
   message?: string;
 }
 
-export const LoadingView = ({ message }: LoadingViewProps) => {
+export const LoadingView = ({ message }: StateViewProps) => {
   return (
     <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-4">
       <Loader2Icon className="size-6 animate-spin text-primary" />
@@ -288,7 +287,7 @@ export const EntityItem = ({
           className
         )}
       >
-        <CardContent className="flex flow-row items-center justify-between p-0">
+  <CardContent className="flex flex-row items-center justify-between p-0">
           <div className="flex items-center gap-3">
             {image}
             <div>

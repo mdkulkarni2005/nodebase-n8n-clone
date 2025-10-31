@@ -27,7 +27,7 @@ export const BaseExecutionNode = memo(
     children,
     onSettings,
     onDoubleClick,
-  }: BaseExecutionNode) => {
+  }: BaseExecutionNodeProps) => {
     const { setNodes, setEdges } = useReactFlow()
     const handleDelete = () => {
       setNodes((currentNodes) => {
