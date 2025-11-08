@@ -25,6 +25,7 @@ export const BaseExecutionNode = memo(
     name,
     description,
     children,
+    // status,
     onSettings,
     onDoubleClick,
   }: BaseExecutionNodeProps) => {
