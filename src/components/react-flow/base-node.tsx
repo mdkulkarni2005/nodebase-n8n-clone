@@ -20,15 +20,6 @@ export const BaseNode = forwardRef<HTMLDivElement, BaseNodeProps>(
       {...props}
     >
       {props.children}
-      {status === "error" && (
-        <XCircleIcon className="absolute right-0.5 bottom-0.5 size-2 text-red-700 stroke-3" />
-      )}
-      {status === "success" && (
-        <CheckCircle2Icon className="absolute right-0.5 bottom-0.5 size-2 green-red-700 stroke-3" />
-      )}
-      {status === "loading" && (
-        <Loader2Icon className="absolute -right-0.5 -bottom-0.5 size-2 text-blue-700 stroke-3 animate-spin" />
-      )}
     </div>
   )
 );

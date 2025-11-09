@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, CheckCircle2, XCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -24,10 +24,10 @@ export const SpinnerLoadingIndicator = ({
       <StatusBorder className="border-blue-700/40">{children}</StatusBorder>
 
       <div className="absolute inset-0 z-50 rounded-[7px] bg-background/50 backdrop-blur-sm" />
-      <div className="absolute inset-0 z-50">
-        <span className="absolute left-[calc(50%-1.25rem)] top-[calc(50%-1.25rem)] inline-block h-10 w-10 animate-ping rounded-full bg-blue-700/20" />
+      <div className="absolute inset-0 z-50 flex items-center justify-center">
+        <span className="absolute inline-block h-10 w-10 animate-ping rounded-full bg-blue-700/20" />
 
-        <LoaderCircle className="absolute left-[calc(50%-0.75rem)] top-[calc(50%-0.75rem)] size-6 animate-spin text-blue-700" />
+        <LoaderCircle className="size-6 animate-spin text-blue-700" />
       </div>
     </div>
   );
@@ -41,7 +41,7 @@ export const BorderLoadingIndicator = ({
   className?: string
 }) => {
   return (
-    <>
+    <div className="relative">
       <div className="absolute -left-[2px] -top-[2px] h-[calc(100%+4px)] w-[calc(100%+4px)]">
         <style>
           {`
@@ -67,19 +67,22 @@ export const BorderLoadingIndicator = ({
         </div>
       </div>
       {children}
-    </>
+      <LoaderCircle className="absolute -right-1 -bottom-1 size-3 text-blue-700 stroke-[3] animate-spin" />
+    </div>
   );
 };
 
 const StatusBorder = ({
   children,
   className,
+  icon,
 }: {
   children: ReactNode;
   className?: string;
+  icon?: ReactNode;
 }) => {
   return (
-    <>
+    <div className="relative">
       <div
         className={cn(
           "absolute -left-[2px] -top-[2px] h-[calc(100%+4px)] w-[calc(100%+4px)] rounded-md border-3",
@@ -87,7 +90,8 @@ const StatusBorder = ({
         )}
       />
       {children}
-    </>
+      {icon}
+    </div>
   );
 };
 
@@ -109,10 +113,22 @@ export const NodeStatusIndicator = ({
       }
     case "success":
       return (
-        <StatusBorder className={cn("border-green-700/50",className)}>{children}</StatusBorder>
+        <StatusBorder 
+          className={cn("border-green-700/50",className)}
+          icon={<CheckCircle2 className="absolute right-1 bottom-1 size-3 text-green-700 stroke-[3]" />}
+        >
+          {children}
+        </StatusBorder>
       );
     case "error":
-      return <StatusBorder className={cn("border-red-700/50", className)}>{children}</StatusBorder>;
+      return (
+        <StatusBorder 
+          className={cn("border-red-700/50", className)}
+          icon={<XCircle className="absolute right-1 bottom-1 size-3 text-red-700 stroke-[3]" />}
+        >
+          {children}
+        </StatusBorder>
+      );
     default:
       return <>{children}</>;
   }
