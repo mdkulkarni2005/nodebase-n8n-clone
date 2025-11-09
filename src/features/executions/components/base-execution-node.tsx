@@ -7,13 +7,14 @@ import { memo, type ReactNode, useCallback } from "react";
 import { BaseNode, BaseNodeContent } from "@/components/react-flow/base-node";
 import { BaseHandle } from "@/components/react-flow/base-handle";
 import { WorkflowNode } from "@/components/workflow-node";
+import { NodeStatus } from "@/components/react-flow/node-status-indicator";
 
 interface BaseExecutionNodeProps extends NodeProps {
   icon: LucideIcon | string;
   name: string;
   description?: string;
   children?: ReactNode;
-  // status?: NodeStatus
+  status?: NodeStatus
   onSettings?: () => void;
   onDoubleClick?: () => void;
 }
@@ -25,7 +26,7 @@ export const BaseExecutionNode = memo(
     name,
     description,
     children,
-    // status,
+    status,
     onSettings,
     onDoubleClick,
   }: BaseExecutionNodeProps) => {

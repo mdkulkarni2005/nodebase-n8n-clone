@@ -1,9 +1,10 @@
 import { NodeType } from "@/generated/prisma";
-import { NodeExecutor } from "../types";
+import type { NodeExecutor } from "../types";
 import { manualTriggerExecutor } from "@/features/triggers/components/manual-trigger/executor";
 import { httpRequestExecutor } from "../components/http-request/executor";
 
-export const executorRegistry: Record<NodeType, NodeExecutor> = {
+// biome-ignore lint/suspicious/noExplicitAny: Registry needs to accept executors with different data types
+export const executorRegistry: Record<NodeType, NodeExecutor<any>> = {
     [NodeType.MANUAL_TRIGGER]: manualTriggerExecutor,
     [NodeType.INITIAL]: httpRequestExecutor,
     [NodeType.HTTP_REQUEST]: httpRequestExecutor,
