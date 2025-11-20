@@ -16,13 +16,14 @@ Handlebars.registerHelper("json", (context) => {
 type OpenAiData = {
   variableName?: string;
   credentialId?: string;
-  systemPrompt?: "string";
+  systemPrompt?: string;
   userPrompt?: string;
 };
 
 export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
   data,
   nodeId,
+  userId,
   context,
   step,
   publish,
@@ -52,7 +53,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
       })
     )
 
-    throw new NonRetriableError("OpenAi node: User prompt is missing")
+    throw new NonRetriableError("OpenAi node: credential is required")
   }
 
   if(!data.userPrompt) {
@@ -77,12 +78,19 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
   const credential = await step.run("get-credential", () => {
     return prisma.credential.findUnique({
       where: {
-        id: data.credentialId
+        id: data.credentialId,
+        userId,
       }
     })
   })
 
   if(!credential) {
+    await publish(
+      openAiChannel().status({
+        nodeId,
+        status: "error"
+      })
+    )
     throw new NonRetriableError("OpenAI node: credential not found")
   }
 
