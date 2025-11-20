@@ -7,6 +7,7 @@ import { stripeTriggerExecutor } from "@/features/triggers/components/stripe-tri
 import { geminiExecutor } from "../components/gemini/executor";
 import { openAiExecutor } from "../components/openai/executor";
 import { anthropicExecutor } from "../components/anthropic/executor";
+import { discordExecutor } from "../components/discord/executor";
 
 // biome-ignore lint/suspicious/noExplicitAny: Registry needs to accept executors with different data types
 export const executorRegistry: Record<NodeType, NodeExecutor> = {
@@ -18,6 +19,8 @@ export const executorRegistry: Record<NodeType, NodeExecutor> = {
     [NodeType.GEMINI]: geminiExecutor,
     [NodeType.ANTHROPIC]: anthropicExecutor,
     [NodeType.OPENAI]: openAiExecutor,
+    [NodeType.DISCORD]: discordExecutor,
+    [NodeType.SLACK]: discordExecutor,
 }
 
 export const getExecutor = (type: NodeType): NodeExecutor => {
