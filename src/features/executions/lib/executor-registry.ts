@@ -8,6 +8,7 @@ import { geminiExecutor } from "../components/gemini/executor";
 import { openAiExecutor } from "../components/openai/executor";
 import { anthropicExecutor } from "../components/anthropic/executor";
 import { discordExecutor } from "../components/discord/executor";
+import { slackExecutor } from "../components/slack/executor";
 
 // biome-ignore lint/suspicious/noExplicitAny: Registry needs to accept executors with different data types
 export const executorRegistry: Record<NodeType, NodeExecutor> = {
@@ -20,7 +21,7 @@ export const executorRegistry: Record<NodeType, NodeExecutor> = {
     [NodeType.ANTHROPIC]: anthropicExecutor,
     [NodeType.OPENAI]: openAiExecutor,
     [NodeType.DISCORD]: discordExecutor,
-    [NodeType.SLACK]: discordExecutor,
+    [NodeType.SLACK]: slackExecutor,
 }
 
 export const getExecutor = (type: NodeType): NodeExecutor => {
