@@ -11,7 +11,7 @@ import {
 } from "@/features/credentials/server/prefetch";
 import { requireAuth } from "@/lib/auth-utils";
 import { HydrateClient } from "@/trpc/server";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import { ErrorBoundary } from "react-error-boundary";
 import { SearchParams } from "nuqs";
 import { Suspense } from "react";
 
