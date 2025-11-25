@@ -82,7 +82,7 @@ export const HttpRequestDialog = ({
     }
   }, [open, defaultValues, form]);
 
-  const watchVariableName = form.watch("variableName") || "myApiCall"
+  const watchVariableName = form.watch("variableName") || "myApiCall";
   const watchMethod = form.watch("method");
   const showBodyField = ["POST", "PUT", "PATCH"].includes(watchMethod);
 
@@ -113,13 +113,11 @@ export const HttpRequestDialog = ({
                 <FormItem>
                   <FormLabel>Variable URL</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="myApiCall"
-                    />
+                    <Input {...field} placeholder="myApiCall" />
                   </FormControl>
                   <FormDescription>
-                    Use this name to reference the result in other nodes: {" "} {`{{${watchVariableName}.httpResponse.data}}`}
+                    Use this name to reference the result in other nodes:{" "}
+                    {`{{${watchVariableName}.httpResponse.data}}`}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

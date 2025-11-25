@@ -11,6 +11,7 @@ import { CredentialType, NodeType } from "@/generated/prisma";
 import type { Node, Edge } from "@xyflow/react";
 import { inngest } from "@/inngest/client";
 import { sendWorkflowExecution } from "@/inngest/utils";
+import { encrypt } from "@/lib/encryption";
 
 export const credentialsRouter = createTRPCRouter({
   create: premiumProcedure
@@ -28,7 +29,7 @@ export const credentialsRouter = createTRPCRouter({
           name,
           userId: ctx.auth.user.id,
           type,
-          value, // TODO: Consider encrypting in production
+          value: encrypt(value)
         },
       });
     }),
@@ -59,7 +60,7 @@ export const credentialsRouter = createTRPCRouter({
         data: {
           name,
           type,
-          value, // TODO: Consider encrypting in production
+          value: encrypt(value)
         }
       })
     }),
